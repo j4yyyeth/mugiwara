@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Secular One', sans-serif;
+}
+
+h1 {
+    font-size: 80px;
+    border-bottom: 5px black dotted;
+    text-transform: uppercase;
+}
+
+#game-logo {
+    width: 15rem;
+}
+
+#flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#map-and-text {
+    font-family: 'Rock Salt', cursive;
+    font-size: 1.1rem;
+    position: relative;
+    text-align: center;
+    color: black;
+  }
+
+.text {
+    position: absolute;
+    top: 45px;
+    left: 110px;
+    width: 250px;
+    line-height: 35px;
+    font-size: 1.2rem;
+  }
+
+  #map-and-text span {
+    color: rgb(201, 5, 5);
+    font-weight: 900;
+    font-size: 1.4rem;
+  }
+
+  #play-button {
+    height: 30px;
+    width: 80px;
+    background-color: rgb(233, 12, 12);
+    border: none;
+    border-radius: 20px;
+    font-family: 'Secular One', sans-serif;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  #play-button:hover {
+    color: white;
+    text-transform: uppercase;
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    transform: scale(1.35);
+  }
+
+  #flex-container-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  #music {
+    height: 40px;
+    width: 270px;
+    -webkit-transition:all 0.5s linear;
+    -moz-transition:all 0.5s linear;
+    -o-transition:all 0.5s linear;
+    transition:all 0.5s linear;
+    -moz-box-shadow: 2px 2px 4px 0px rgba(0,0, 0, 0.4);
+    -webkit-box-shadow:  2px 2px 4px 0px rgba(0,0, 0, 0.4);
+    box-shadow: 2px 2px 4px 0px rgba(0,0, 0, 0.4);
+    -moz-border-radius:7px 7px 7px 7px;
+    -webkit-border-radius:7px 7px 7px 7px;
+    border-radius:7px 7px 7px 7px;
+    background-color: rgb(243, 242, 242);
+    border-radius: 50px;
+  }
+
+   #music:hover, #music:focus, #music:active {
+    -webkit-box-shadow: 15px 15px 20px red;
+    -moz-box-shadow: 15px 15px 20px red;
+    box-shadow: 15px 15px 20px red;
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    transform: scale(1.05);
+    background-color: rgb(243, 242, 242);
+  }
+
+  #menu-button {
+    height: 40px;
+    width: 250px;
+    background-color: rgb(233, 12, 12);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Secular One', sans-serif;
+    font-size: 18px;
+  }
+
+  #menu-button:hover {
+    color: white;
+    text-transform: uppercase;
+    -webkit-transform: scale(1.50);
+    -moz-transform: scale(1.50);
+    transform: scale(1.50);
+  }
+
+  #game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  #canvas {
+    border-style: solid;
+    border-width: 10px;
+    border-image-source: url('../images/wood-border.jpg');
+    border-image-slice: 30 30;
+    visibility: hidden;
+  }
+  
+

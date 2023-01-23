@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Secular+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="flex-container">
+        <h1>Buccaneer Barrage</h1>
+        <img src="images/pirate-logo2.png" id="game-logo" alt="logo">
+        <div id="map-and-text">
+            <img src="images/pirate-map.jpg" alt="map" style="width:80%;">
+            <div class="text">
+                <p><span>Ahoy Matey!</span> In this game, you have only one objective. Shoot down the enemy pirate ships with your cannon! If you shoot down <span>#</span> pirate ships, <span>you win!</span> </span>If <span>#</span> ships cross your view, <span>you lose ... ARGHH!</span><br><button id="play-button">Play</button></p>
+            </div>
+        </div>
+    </div>
+    <div id="game">
+        <canvas id="canvas" height="0" width="0"></canvas>
+    </div>
+    
+    <br>
+
+    <!-- In case you want to add an image for the audio: <img src="images/pirate-song-image.png"> -->
+    <div id="flex-container-2">
+        <audio controls id="music">
+            <source src="audio/pirates-of-caribbean.mp3" loop="">
+        </audio>
+        <button id="menu-button" onClick="window.location.reload(true)">Return to Menu</button>
+        <br>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
