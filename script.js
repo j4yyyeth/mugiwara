@@ -1,3 +1,4 @@
+// getting images
 const playButton = document.getElementById('play-button');
 const menuButton = document.getElementById('menu-button');
 
@@ -12,28 +13,32 @@ oceanBackground.src = '/images/ocean1.jpg';
 const cannonImage = new Image();
 cannonImage.src = '/images/cannon1.png';
 
-// const soundEffect = new Audio('audio/'); if u want to add a sound effect to the play button
+const pirateShip = new Image();
+pirateShip.src = '/images/ship1.png';
 
-playButton.onclick = function() {
-    canvas.style.visibility = 'visible';
-    canvas.style.height = '769px';
-    canvas.style.width = '1500px';
-    container.remove();
-    // animation();
+const deck = new Image();
+deck.src = '/images/pirate-ship-deck.png';
+// getting images
 
-    // soundEffect.play(); if u want to add a sound effect to the play button
+// drawing images function
+function drawFrame() {
+    ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
+    ctx.drawImage(deck, 0, -20, 500, 800);
+    ctx.drawImage(cannonImage, 230, 450, 200, 200);
+    ctx.drawImage(pirateShip, 1200, 100, 100, 200);
 }
+// drawing images function
 
-// window.onload = function() {
-//     document.getElementById("start-button").onclick = function() {
-//       startGame();
-//     };
-//   };
-  
-// function animation() {
-//     animationLoopId = setInterval(() => {
-//         ctx.clearRect(0,0,1500,769);
-//         ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
-//         ctx.drawImage(cannonImage, 400, 200, 75, 50);
-//     }, 10)
-// };
+
+
+// onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
+window.onload = () => {
+    playButton.onclick = () => {
+    canvas.style.visibility = 'visible';
+    container.remove();
+    drawFrame();
+    }
+}
+// onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
+
+
