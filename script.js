@@ -14,7 +14,7 @@ const cannonImage = new Image();
 cannonImage.src = '/images/cannon1.png';
 
 const pirateImage = new Image();
-pirateImage.src = '/images/ship1.png';
+pirateImage.src = '/images/ship2.png';
 
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
@@ -40,6 +40,8 @@ function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
+    pirateShip.draw();
+    pirateShip.move();
     cannon.draw();
 }
 //
@@ -48,25 +50,31 @@ function updateCanvas() {
 function animationLoop() {
     animationLoopId = setInterval(() => {
     updateCanvas();
-    }, 1000);
+    }, 1);
 }
 // 
 
-// creates a PirateShip class that has a move method and a draw method 
-class PirateShip {
-  constructor() {
-    this.x;
-    this.y;
-    this.width;
-    this.height;
-  }
+// pirateShip object that has x and y positions, a draw function, and a move method;
+const pirateShip = {
+  x: 1200,
+  y: 120,
+  width: 100,
+  height: 150,
+
+  draw: function() {
+    ctx.drawImage(pirateImage, this.x, this.y, this.width, this.height)
+  },
 
   move() {
-    this.y++;
-  }
+    this.y++; // here: when pirate ships go by, each one has to get a bit faster. You can loop through the array and once the array reaches a certain ammount of pirate ships (ex: 5), you can do a +=2 next and then +=3 and so on to increase the speed of the pirate ships.
+  },
 
-  draw() {
-    ctx.drawImage(pirateImage, this.x, this.y, this.width, this.height);
+  move2() {
+    this.y+=2;
+  },
+
+  move3() {
+    this.y+=3;
   }
 }
 //
@@ -76,7 +84,7 @@ let pirateShipArray = [];
 // this function will push a new instance of the PirateShip class into pirateShipArray
 function deployShips() {
   intervalId = setInterval(()=>{
-    pirateShipArray.push(new PirateShip());
+    pirateShipArray.push(pirateShip);
   }, 1000)
 }
 //
@@ -140,8 +148,3 @@ document.addEventListener('keydown', e => {
     }
 });
 //
-
-
-
-
-
