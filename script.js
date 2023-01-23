@@ -13,6 +13,9 @@ oceanBackground.src = '/images/ocean1.jpg';
 const cannonImage = new Image();
 cannonImage.src = '/images/cannon1.png';
 
+const cannonBallImage = new Image();
+cannonBallImage.src = '/images/cannon-ball.png';
+
 const pirateImage = new Image();
 pirateImage.src = '/images/ship2.png';
 
@@ -42,13 +45,12 @@ function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
+    cannon.draw();
     pirateShip.draw();
     pirateShip.move();
     if (pirateShip.y === 769) {
       pirateShipCount++;       // what this does: if the pirate ship crosses past the y-axis of the canvas, a count is updated. With that count, when a certain amount of pirates cross (ex: if count === 5), you can now make the ships move() method faster 
-      console.log(pirateShipCount);
     }
-    cannon.draw();
 }
 //
 
@@ -59,6 +61,35 @@ function animationLoop() {
     }, 10);
 }
 // 
+
+// PirateShip class to make new pirate ships appear after the one before leaves the y-axis
+class PirateShip {
+  constructor() {
+    this.x = 1200
+    this.y = 120
+    this.width = 100
+    this.height = 150
+  }
+
+  draw() {
+    ctx.drawImage(pirateImage, this.x, this.y, this.width, this.height);
+  }
+
+  move() {
+    this.y++; 
+  }
+
+  move2() {
+    this.y++; 
+  }
+
+  move3() {
+    this.y++; 
+  }
+}
+//
+
+// eventually delete object and just use class 
 
 // pirateShip object that has x and y positions, a draw function, and a move method;
 const pirateShip = {
@@ -72,7 +103,7 @@ const pirateShip = {
   },
 
   move() {
-    this.y++; // here: when pirate ships go by, each one has to get a bit faster. You can loop through the array and once the array reaches a certain ammount of pirate ships (ex: 5), you can do a +=2 next and then +=3 and so on to increase the speed of the pirate ships.
+    this.y++; 
   },
 
   move2() {
@@ -89,11 +120,15 @@ const pirateShip = {
 const cannon = {
     x: startingX,
     y: startingY,
-    width: 300,
-    height: 250,
+    width: 200,
+    height: 200,
   
     draw: function() {
       ctx.drawImage(cannonImage, this.x, this.y, this.width, this.height)
+    },
+
+    shoot: function() {
+      ctx.drawImage(cannonBallImage, this.x + 200, this.y, 50, 50);
     },
   
     moveLeft: function() {
@@ -128,6 +163,9 @@ window.onload = () => {
 // event listener that allows you to move the cannon with the arrow keys
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
+      case 32:
+        cannon.shoot();
+        break;
       case 38:
         cannon.moveUp();
         break;
