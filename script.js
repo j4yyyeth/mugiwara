@@ -13,16 +13,19 @@ oceanBackground.src = '/images/ocean1.jpg';
 const cannonImage = new Image();
 cannonImage.src = '/images/cannon1.png';
 
-const pirateShip = new Image();
-pirateShip.src = '/images/ship1.png';
+const pirateImage = new Image();
+pirateImage.src = '/images/ship1.png';
 
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
-// getting images
+//
 
+// starting positions for cannon
 let startingX = 180;
 let startingY = 390;
+//
 
+// function to start the game .. later added to onclick 
 function startGame() {
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
@@ -30,22 +33,55 @@ function startGame() {
     cannon.x = startingX;
     cannon.y = startingY;
 }
+//
 
+// updates what's on the canvas .. later used in the animation loop function
 function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
     cannon.draw();
 }
+//
 
-// animation 
+// animation loop that used the updateCanvas() function to draw the images
 function animationLoop() {
     animationLoopId = setInterval(() => {
     updateCanvas();
-    }, 500);
+    }, 1000);
 }
-// animation 
+// 
 
+// creates a PirateShip class that has a move method and a draw method 
+class PirateShip {
+  constructor() {
+    this.x;
+    this.y;
+    this.width;
+    this.height;
+  }
+
+  move() {
+    this.y++;
+  }
+
+  draw() {
+    ctx.drawImage(pirateImage, this.x, this.y, this.width, this.height);
+  }
+}
+//
+
+let pirateShipArray = [];
+
+// this function will push a new instance of the PirateShip class into pirateShipArray
+function deployShips() {
+  intervalId = setInterval(()=>{
+    pirateShipArray.push(new PirateShip());
+  }, 1000)
+}
+//
+
+// creates the cannon object which has some functions that draw the canon and allow you to move it
 const cannon = {
     x: startingX,
     y: startingY,
@@ -71,7 +107,8 @@ const cannon = {
     moveDown: function() {
       this.y = this.y + 5
     }
-  }
+}
+//
 
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
 window.onload = () => {
@@ -80,12 +117,12 @@ window.onload = () => {
     container.remove();
     startGame();
     animationLoop();
+    deployShips();
     }
 }
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
 
-
-
+// event listener that allows you to move the cannon with the arrow keys
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
       case 38:
@@ -102,6 +139,7 @@ document.addEventListener('keydown', e => {
         break;
     }
 });
+//
 
 
 
