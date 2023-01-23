@@ -25,6 +25,8 @@ let startingX = 180;
 let startingY = 390;
 //
 
+let pirateShipCount = 0;
+
 // function to start the game .. later added to onclick 
 function startGame() {
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
@@ -42,6 +44,10 @@ function updateCanvas() {
     ctx.drawImage(deck, 0, -20, 500, 800);
     pirateShip.draw();
     pirateShip.move();
+    if (pirateShip.y === 769) {
+      pirateShipCount++;       // what this does: if the pirate ship crosses past the y-axis of the canvas, a count is updated. With that count, when a certain amount of pirates cross (ex: if count === 5), you can now make the ships move() method faster 
+      console.log(pirateShipCount);
+    }
     cannon.draw();
 }
 //
@@ -50,7 +56,7 @@ function updateCanvas() {
 function animationLoop() {
     animationLoopId = setInterval(() => {
     updateCanvas();
-    }, 1);
+    }, 10);
 }
 // 
 
@@ -76,16 +82,6 @@ const pirateShip = {
   move3() {
     this.y+=3;
   }
-}
-//
-
-let pirateShipArray = [];
-
-// this function will push a new instance of the PirateShip class into pirateShipArray
-function deployShips() {
-  intervalId = setInterval(()=>{
-    pirateShipArray.push(pirateShip);
-  }, 1000)
 }
 //
 
@@ -125,7 +121,6 @@ window.onload = () => {
     container.remove();
     startGame();
     animationLoop();
-    deployShips();
     }
 }
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame

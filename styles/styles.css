@@ -5,6 +5,7 @@
 
 body {
     font-family: 'Secular One', sans-serif;
+    overflow-x: hidden;
 }
 
 h1 {
