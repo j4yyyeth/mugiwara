@@ -21,9 +21,9 @@ pirateImage.src = '/images/ship1.png';
 
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
+//
 
 let cannonballAnimationId
-//
 
 // starting positions for cannon
 let startingX = 180;
@@ -234,7 +234,7 @@ class CannonBall {
 
 // collision function
 function checkCollision(ball, ship) {
- if (ball.x === ship.x ) {
+ if (ball.x === ship.y) {
   console.log("hit!");
  }
 // ship.x always equal to 1200
@@ -266,8 +266,9 @@ document.addEventListener('keydown', e => {
     switch (e.keyCode) {
       case 32:
         if (cannonBall1.inFlight === false){
-        updateCannon();
+        
       }
+      updateCannon(); // put this back in the conditional above when done testing for collision
         break;
       case 38:
         cannon.moveUp();
