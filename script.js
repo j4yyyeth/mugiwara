@@ -21,6 +21,8 @@ pirateImage.src = '/images/ship1.png';
 
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
+
+let cannonballAnimationId
 //
 
 // starting positions for cannon
@@ -47,8 +49,6 @@ function updateCanvas() {
     ctx.drawImage(deck, 0, -20, 600, 800);       // deck image 1
     // ctx.drawImage(deck, 0, 20, 500, 800);        // deck image 2
     cannonBall1.draw();
-    cannonBall2.draw();
-    cannonBall3.draw();
     cannon.draw();
     pirateShip1.draw();
     pirateShip1.move();
@@ -122,6 +122,7 @@ function updateCanvas() {
       pirateShip15.draw();
       pirateShip15.move3();
     }
+    checkCollision( cannonBall1, pirateShip1);
 }
 //
 
@@ -129,20 +130,15 @@ ballCount = 0;
 
 // updates the cannon ball
 function updateCannon() {
-  animationLoopId = setInterval(() => {
+  cannonBall1.inFlight = true
+  cannonballAnimationId = setInterval(() => {
     cannonBall1.move();
     ballCount++;
-    if (pirateShip1.y > 800) {
-      cannonBall2.move();
-    }
-
-    if (pirateShip2.y > 800) {
-      cannonBall3.move();
-    }
   }, 1);
 }
 //
 
+let animationLoopId
 // animation loop that used the updateCanvas() function to draw the images
 function animationLoop() {
     animationLoopId = setInterval(() => {
@@ -218,6 +214,7 @@ class CannonBall {
      this.y = y;
      this.width = 25;
      this.height = 25;
+     this.inFlight = false
   }
 
   draw() {
@@ -226,14 +223,31 @@ class CannonBall {
 
   move() {
     this.x+=5;
+    if(this.x > canvas.width) {
+      this.x = startingX
+      clearInterval(cannonballAnimationId)  
+      this.inFlight = false 
+    }
   }
+}
+//
+
+// collision function
+function checkCollision(ball, ship) {
+ if (ball.x === ship.x ) {
+  console.log("hit!");
+ }
+// ship.x always equal to 1200
+// ship.y moves downwards
+
+// ball.x moves right
+// ball.y always equal to 530
+
 }
 //
 
 // instace of the CannonBall class
 let cannonBall1 = new CannonBall(cannon.x, cannon.y);
-let cannonBall2 = new CannonBall(cannon.x, cannon.y);
-let cannonBall3 = new CannonBall(cannon.x, cannon.y);
 //
 
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
@@ -251,7 +265,9 @@ window.onload = () => {
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
       case 32:
+        if (cannonBall1.inFlight === false){
         updateCannon();
+      }
         break;
       case 38:
         cannon.moveUp();
