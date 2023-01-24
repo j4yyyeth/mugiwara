@@ -46,6 +46,8 @@ function updateCanvas() {
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
     cannonBall1.draw();
+    cannonBall2.draw();
+    cannonBall3.draw();
     cannon.draw();
     pirateShip1.draw();
     pirateShip1.move();
@@ -128,8 +130,15 @@ ballCount = 0;
 function updateCannon() {
   animationLoopId = setInterval(() => {
     cannonBall1.move();
+    ballCount++;
+    if (pirateShip1.y > 800) {
+      cannonBall2.move();
+    }
+
+    if (pirateShip2.y > 800) {
+      cannonBall3.move();
+    }
   }, 1);
-  ballCount++;
 }
 //
 
@@ -222,6 +231,8 @@ class CannonBall {
 
 // instace of the CannonBall class
 let cannonBall1 = new CannonBall(cannon.x, cannon.y);
+let cannonBall2 = new CannonBall(cannon.x, cannon.y);
+let cannonBall3 = new CannonBall(cannon.x, cannon.y);
 //
 
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
