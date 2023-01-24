@@ -25,7 +25,7 @@ deck.src = '/images/pirate-ship-deck.png';
 
 // starting positions for cannon
 let startingX = 180;
-let startingY = 390;
+let startingY = 430;
 //
 
 let pirateShipCount = 0;
@@ -49,15 +49,26 @@ function updateCanvas() {
     pirateShip.draw();
     pirateShip.move();
     if (pirateShip.y === 769) {
-      pirateShipCount++;       // what this does: if the pirate ship crosses past the y-axis of the canvas, a count is updated. With that count, when a certain amount of pirates cross (ex: if count === 5), you can now make the ships move() method faster 
+      pirateShipCount++;
     }
+
 }
 //
 
+ballCount = 0;
+
+function updateCannon() {
+  animationLoopId = setInterval(() => {
+    cannonBall1.move();
+  }, 10);
+  ballCount++;
+}
 // animation loop that used the updateCanvas() function to draw the images
 function animationLoop() {
     animationLoopId = setInterval(() => {
-    updateCanvas();
+      updateCanvas();
+      // updateCannon();
+      cannonBall1.draw();
     }, 10);
 }
 // 
@@ -116,6 +127,8 @@ const pirateShip = {
 }
 //
 
+let shotCount = 0;
+
 // creates the cannon object which has some functions that draw the canon and allow you to move it
 const cannon = {
     x: startingX,
@@ -124,13 +137,9 @@ const cannon = {
     height: 200,
   
     draw: function() {
-      ctx.drawImage(cannonImage, this.x, this.y, this.width, this.height)
+      ctx.drawImage(cannonImage, this.x, this.y, this.width, this.height);
     },
 
-    shoot: function() {
-      ctx.drawImage(cannonBallImage, this.x + 200, this.y, 50, 50);
-    },
-  
     moveLeft: function() {
       this.x = this.x - 5
     },
@@ -147,7 +156,26 @@ const cannon = {
       this.y = this.y + 5
     }
 }
+
+class CannonBall {
+  constructor(x, y) {
+     this.x = x;
+     this.y = y;
+     this.width = 50;
+     this.height = 50;
+  }
+
+  draw() {
+    ctx.drawImage(cannonBallImage, this.x + 180, this.y, this.width, this.height);
+  }
+
+  move() {
+    this.x+=5;
+  }
+}
 //
+
+let cannonBall1 = new CannonBall(cannon.x, cannon.y);
 
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
 window.onload = () => {
@@ -164,7 +192,7 @@ window.onload = () => {
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
       case 32:
-        cannon.shoot();
+        updateCannon();
         break;
       case 38:
         cannon.moveUp();
