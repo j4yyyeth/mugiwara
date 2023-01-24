@@ -25,7 +25,7 @@ deck.src = '/images/pirate-ship-deck.png';
 
 // starting positions for cannon
 let startingX = 180;
-let startingY = 430;
+let startingY = 530;
 //
 
 let pirateShipCount = 0;
@@ -45,30 +45,31 @@ function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
+    cannonBall1.draw();
     cannon.draw();
     pirateShip.draw();
     pirateShip.move();
     if (pirateShip.y === 769) {
       pirateShipCount++;
     }
-
 }
 //
 
 ballCount = 0;
 
+// updates the cannon ball
 function updateCannon() {
   animationLoopId = setInterval(() => {
     cannonBall1.move();
-  }, 10);
+  }, 1);
   ballCount++;
 }
+//
+
 // animation loop that used the updateCanvas() function to draw the images
 function animationLoop() {
     animationLoopId = setInterval(() => {
       updateCanvas();
-      // updateCannon();
-      cannonBall1.draw();
     }, 10);
 }
 // 
@@ -104,7 +105,7 @@ class PirateShip {
 
 // pirateShip object that has x and y positions, a draw function, and a move method;
 const pirateShip = {
-  x: 1200,
+  x: 1300,
   y: 120,
   width: 100,
   height: 150,
@@ -115,21 +116,13 @@ const pirateShip = {
 
   move() {
     this.y++; 
-  },
-
-  move2() {
-    this.y+=2;
-  },
-
-  move3() {
-    this.y+=3;
   }
 }
 //
 
 let shotCount = 0;
 
-// creates the cannon object which has some functions that draw the canon and allow you to move it
+// creates the cannon object
 const cannon = {
     x: startingX,
     y: startingY,
@@ -139,34 +132,20 @@ const cannon = {
     draw: function() {
       ctx.drawImage(cannonImage, this.x, this.y, this.width, this.height);
     },
-
-    moveLeft: function() {
-      this.x = this.x - 5
-    },
-  
-    moveRight: function() {
-      this.x = this.x + 5
-    },
-  
-    moveUp: function() {
-      this.y = this.y - 5
-    },
-  
-    moveDown: function() {
-      this.y = this.y + 5
-    }
 }
+//
 
+// this class draws the cannonball inside the cannon, as well as move animate it if you press space
 class CannonBall {
   constructor(x, y) {
      this.x = x;
      this.y = y;
-     this.width = 50;
-     this.height = 50;
+     this.width = 25;
+     this.height = 25;
   }
 
   draw() {
-    ctx.drawImage(cannonBallImage, this.x + 180, this.y, this.width, this.height);
+    ctx.drawImage(cannonBallImage, this.x + 160, this.y + 15, this.width, this.height);
   }
 
   move() {
@@ -175,7 +154,9 @@ class CannonBall {
 }
 //
 
+// instace of the CannonBall class
 let cannonBall1 = new CannonBall(cannon.x, cannon.y);
+//
 
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
 window.onload = () => {
@@ -186,7 +167,7 @@ window.onload = () => {
     animationLoop();
     }
 }
-// onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
+//
 
 // event listener that allows you to move the cannon with the arrow keys
 document.addEventListener('keydown', e => {
