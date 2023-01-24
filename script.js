@@ -47,10 +47,77 @@ function updateCanvas() {
     ctx.drawImage(deck, 0, -20, 500, 800);
     cannonBall1.draw();
     cannon.draw();
-    pirateShip.draw();
-    pirateShip.move();
-    if (pirateShip.y === 769) {
-      pirateShipCount++;
+    pirateShip1.draw();
+    pirateShip1.move();
+
+    if (pirateShip1.y > 800) {
+      pirateShip2.draw();
+      pirateShip2.move();
+    }
+
+    if (pirateShip2.y > 800) {
+      pirateShip3.draw();
+      pirateShip3.move();
+    }
+
+    if (pirateShip3.y > 800) {
+      pirateShip4.draw();
+      pirateShip4.move();
+    }
+
+    if (pirateShip4.y > 800) {
+      pirateShip5.draw();
+      pirateShip5.move2();
+    }
+
+    if (pirateShip5.y > 800) {
+      pirateShip6.draw();
+      pirateShip6.move2();
+    }
+
+    if (pirateShip6.y > 800) {
+      pirateShip7.draw();
+      pirateShip7.move2();
+    }
+
+    if (pirateShip7.y > 800) {
+      pirateShip8.draw();
+      pirateShip8.move2();
+    }
+
+    if (pirateShip8.y > 800) {
+      pirateShip9.draw();
+      pirateShip9.move2();
+    }
+
+    if (pirateShip9.y > 800) {
+      pirateShip10.draw();
+      pirateShip10.move2();
+    }
+
+    if (pirateShip10.y > 800) {
+      pirateShip11.draw();
+      pirateShip11.move2();
+    }
+
+    if (pirateShip11.y > 800) {
+      pirateShip12.draw();
+      pirateShip12.move3();
+    }
+
+    if (pirateShip12.y > 800) {
+      pirateShip13.draw();
+      pirateShip13.move3();
+    }
+
+    if (pirateShip13.y > 800) {
+      pirateShip14.draw();
+      pirateShip14.move3();
+    }
+
+    if (pirateShip14.y > 800) {
+      pirateShip15.draw();
+      pirateShip15.move3();
     }
 }
 //
@@ -78,7 +145,7 @@ function animationLoop() {
 class PirateShip {
   constructor() {
     this.x = 1200
-    this.y = 120
+    this.y = 150
     this.width = 100
     this.height = 150
   }
@@ -92,32 +159,31 @@ class PirateShip {
   }
 
   move2() {
-    this.y++; 
+    this.y+=2;
   }
 
   move3() {
-    this.y++; 
+    this.y+=3;
   }
 }
 //
 
-// eventually delete object and just use class 
-
-// pirateShip object that has x and y positions, a draw function, and a move method;
-const pirateShip = {
-  x: 1300,
-  y: 120,
-  width: 100,
-  height: 150,
-
-  draw: function() {
-    ctx.drawImage(pirateImage, this.x, this.y, this.width, this.height)
-  },
-
-  move() {
-    this.y++; 
-  }
-}
+// instaces of the PirateShip class
+let pirateShip1 = new PirateShip();
+let pirateShip2 = new PirateShip();
+let pirateShip3 = new PirateShip();
+let pirateShip4 = new PirateShip();
+let pirateShip5 = new PirateShip();
+let pirateShip6 = new PirateShip();
+let pirateShip7 = new PirateShip();
+let pirateShip8 = new PirateShip();
+let pirateShip9 = new PirateShip();
+let pirateShip10 = new PirateShip();
+let pirateShip11 = new PirateShip();
+let pirateShip12 = new PirateShip();
+let pirateShip13 = new PirateShip();
+let pirateShip14 = new PirateShip();
+let pirateShip15 = new PirateShip();
 //
 
 let shotCount = 0;
