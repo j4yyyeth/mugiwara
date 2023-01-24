@@ -17,7 +17,7 @@ const cannonBallImage = new Image();
 cannonBallImage.src = '/images/cannon-ball.png';
 
 const pirateImage = new Image();
-pirateImage.src = '/images/ship2.png';
+pirateImage.src = '/images/ship1.png';
 
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
@@ -44,7 +44,8 @@ function startGame() {
 function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
-    ctx.drawImage(deck, 0, -20, 500, 800);
+    ctx.drawImage(deck, 0, -20, 600, 800);       // deck image 1
+    // ctx.drawImage(deck, 0, 20, 500, 800);        // deck image 2
     cannonBall1.draw();
     cannonBall2.draw();
     cannonBall3.draw();
