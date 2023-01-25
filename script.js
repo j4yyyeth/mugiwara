@@ -23,22 +23,25 @@ const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
 
 let fire = new Audio('audio/cannon-fire.mp3');
-
+fire.volume = 1;
+let sailing = new Audio('audio/sailing-ship.mp3');
+sailing.volume = 0.5;
 //
 
-let cannonballAnimationId
+let cannonballAnimationId;
+
+let shipArray = [];
 
 // starting positions for cannon
 let startingX = 180;
 let startingY = 530;
 //
 
-let pirateShipCount = 0;
-
 // function to start the game .. later added to onclick 
 function startGame() {
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
+    sailing.play();
     cannon.draw();
     cannon.x = startingX;
     cannon.y = startingY;
@@ -49,87 +52,30 @@ function startGame() {
 function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
-    ctx.drawImage(deck, 0, -20, 600, 800);       // deck image 1
-    // ctx.drawImage(deck, 0, 20, 500, 800);        // deck image 2
+    ctx.drawImage(deck, 0, -20, 600, 800);     
     cannonBall1.draw();
     cannon.draw();
     pirateShip1.draw();
     pirateShip1.move();
 
     if (pirateShip1.y > 800) {
+      pirateShip1.y = 150;
+      shipArray.push(pirateShip1);
+    }
+
+    if (shipArray.length >= 5) {
+      pirateShip1.y = 900;
       pirateShip2.draw();
-      pirateShip2.move();
-    }
+      pirateShip2.move2();
 
-    if (pirateShip2.y > 800) {
-      pirateShip3.draw();
-      pirateShip3.move();
+      if (pirateShip2.y > 800) {
+        pirateShip2.y = 150;
+        shipArray.push(pirateShip2);
+      }
     }
-
-    if (pirateShip3.y > 800) {
-      pirateShip4.draw();
-      pirateShip4.move();
-    }
-
-    if (pirateShip4.y > 800) {
-      pirateShip5.draw();
-      pirateShip5.move2();
-    }
-
-    if (pirateShip5.y > 800) {
-      pirateShip6.draw();
-      pirateShip6.move2();
-    }
-
-    if (pirateShip6.y > 800) {
-      pirateShip7.draw();
-      pirateShip7.move2();
-    }
-
-    if (pirateShip7.y > 800) {
-      pirateShip8.draw();
-      pirateShip8.move2();
-    }
-
-    if (pirateShip8.y > 800) {
-      pirateShip9.draw();
-      pirateShip9.move2();
-    }
-
-    if (pirateShip9.y > 800) {
-      pirateShip10.draw();
-      pirateShip10.move2();
-    }
-
-    if (pirateShip10.y > 800) {
-      pirateShip11.draw();
-      pirateShip11.move2();
-    }
-
-    if (pirateShip11.y > 800) {
-      pirateShip12.draw();
-      pirateShip12.move3();
-    }
-
-    if (pirateShip12.y > 800) {
-      pirateShip13.draw();
-      pirateShip13.move3();
-    }
-
-    if (pirateShip13.y > 800) {
-      pirateShip14.draw();
-      pirateShip14.move3();
-    }
-
-    if (pirateShip14.y > 800) {
-      pirateShip15.draw();
-      pirateShip15.move3();
-    }
-    checkCollision( cannonBall1, pirateShip1);
+    checkCollision(cannonBall1, pirateShip1);
 }
 //
-
-ballCount = 0;
 
 // updates the cannon ball
 function updateCannon() {
@@ -142,12 +88,12 @@ function updateCannon() {
     if (cannonBall1.inFlight === false) {
       fire.load();
     }
-    ballCount++;
   }, 1);
 }
 //
 
-let animationLoopId
+let animationLoopId;
+
 // animation loop that used the updateCanvas() function to draw the images
 function animationLoop() {
     animationLoopId = setInterval(() => {
@@ -163,6 +109,7 @@ class PirateShip {
     this.y = 150
     this.width = 100
     this.height = 150
+    this.sailing = false
   }
 
   draw() {
@@ -180,28 +127,44 @@ class PirateShip {
   move3() {
     this.y+=3;
   }
+
+  move4() {
+    this.y+=4
+  }
+
+  move5() {
+    this.y+=5
+  }
+
+  move6() {
+    this.y+=6
+  }
+
+  move7() {
+    this.y+=7
+  }
+
+  move8() {
+    this.y+=8
+  }
+
+  move9() {
+    this.y+=9
+  }
+
+  move10() {
+    this.y+=10
+  }
 }
 //
 
-// instaces of the PirateShip class
+// instace of the PirateShip class
 let pirateShip1 = new PirateShip();
 let pirateShip2 = new PirateShip();
 let pirateShip3 = new PirateShip();
 let pirateShip4 = new PirateShip();
 let pirateShip5 = new PirateShip();
-let pirateShip6 = new PirateShip();
-let pirateShip7 = new PirateShip();
-let pirateShip8 = new PirateShip();
-let pirateShip9 = new PirateShip();
-let pirateShip10 = new PirateShip();
-let pirateShip11 = new PirateShip();
-let pirateShip12 = new PirateShip();
-let pirateShip13 = new PirateShip();
-let pirateShip14 = new PirateShip();
-let pirateShip15 = new PirateShip();
 //
-
-let shotCount = 0;
 
 // creates the cannon object
 const cannon = {
@@ -231,7 +194,7 @@ class CannonBall {
   }
 
   move() {
-    this.x+=7;
+    this.x+=9;
     if(this.x > canvas.width) {
       this.x = startingX
       clearInterval(cannonballAnimationId)  
@@ -243,8 +206,16 @@ class CannonBall {
 
 // collision function
 function checkCollision(ball, ship) {
- if (ball.x === ship.y) {
-  console.log("hit!");
+ if (ball.y === ship.y && ship.x === ball.x) {
+  var collided = true;
+ }
+ else {
+  collided = false;
+ }
+
+ if (collided === true) {
+  console.log(ball.y);
+  console.log(ship.y);
  }
 // ship.x always equal to 1200
 // ship.y moves downwards
@@ -252,6 +223,16 @@ function checkCollision(ball, ship) {
 // ball.x moves right
 // ball.y always equal to 530
 
+// function collision(b,p){                 object = p
+//   p.top = p.positionY;
+//   p.bottom = p.positionY + p.height;
+//   p.left = p.positionX;
+//   p.right = p.positionX + p.width;
+//   b.top = b.y- b.radius;
+//   b.bottom = b.y + b.radius;
+//   b.left = b.x - b.radius
+//   b.right = b.x + b.radius
+//   return b.right > p.left && b.top < p.bottom && b.left < p.right && b.bottom > p.top;
 }
 //
 
