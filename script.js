@@ -1,4 +1,4 @@
-// getting images
+// getting images/audio
 const playButton = document.getElementById('play-button');
 const menuButton = document.getElementById('menu-button');
 
@@ -17,10 +17,13 @@ const cannonBallImage = new Image();
 cannonBallImage.src = '/images/cannon-ball.png';
 
 const pirateImage = new Image();
-pirateImage.src = '/images/ship1.png';
+pirateImage.src = '/images/ship3.png';
 
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
+
+let fire = new Audio('audio/cannon-fire.mp3');
+
 //
 
 let cannonballAnimationId
@@ -133,6 +136,12 @@ function updateCannon() {
   cannonBall1.inFlight = true
   cannonballAnimationId = setInterval(() => {
     cannonBall1.move();
+    if (cannonBall1.inFlight === true) {
+      fire.play();
+    }
+    if (cannonBall1.inFlight === false) {
+      fire.load();
+    }
     ballCount++;
   }, 1);
 }
@@ -161,7 +170,7 @@ class PirateShip {
   }
 
   move() {
-    this.y++; 
+    this.y+=1; 
   }
 
   move2() {
@@ -222,7 +231,7 @@ class CannonBall {
   }
 
   move() {
-    this.x+=5;
+    this.x+=7;
     if(this.x > canvas.width) {
       this.x = startingX
       clearInterval(cannonballAnimationId)  
@@ -265,10 +274,9 @@ window.onload = () => {
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
       case 32:
-        if (cannonBall1.inFlight === false){
-        
-      }
-      updateCannon(); // put this back in the conditional above when done testing for collision
+        if (cannonBall1.inFlight === false) {
+          updateCannon();
+        }
         break;
       case 38:
         cannon.moveUp();
