@@ -22,15 +22,18 @@ pirateImage.src = '/images/ship3.png';
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
 
-let fire = new Audio('audio/cannon-fire.mp3');
+let fire = new Audio();
+fire.src = 'audio/cannon-fire.mp3';
 fire.volume = 1;
-let sailing = new Audio('audio/sailing-ship.mp3');
+
+let sailing = new Audio();
+sailing.src = 'audio/sailing-ship.mp3';
 sailing.volume = 0.5;
 //
 
 let cannonballAnimationId;
 
-let shipArray = [];
+let shipCount = 0;
 
 // starting positions for cannon
 let startingX = 180;
@@ -55,25 +58,11 @@ function updateCanvas() {
     ctx.drawImage(deck, 0, -20, 600, 800);     
     cannonBall1.draw();
     cannon.draw();
-    pirateShip1.draw();
-    pirateShip1.move();
 
-    if (pirateShip1.y > 800) {
-      pirateShip1.y = 150;
-      shipArray.push(pirateShip1);
-    }
+    newShip(pirateShip1, pirateShip2);
 
-    if (shipArray.length >= 5) {
-      pirateShip1.y = 900;
-      pirateShip2.draw();
-      pirateShip2.move2();
-
-      if (pirateShip2.y > 800) {
-        pirateShip2.y = 150;
-        shipArray.push(pirateShip2);
-      }
-    }
     checkCollision(cannonBall1, pirateShip1);
+    checkCollision(cannonBall1, pirateShip2);
 }
 //
 
@@ -109,7 +98,6 @@ class PirateShip {
     this.y = 150
     this.width = 100
     this.height = 150
-    this.sailing = false
   }
 
   draw() {
@@ -129,31 +117,11 @@ class PirateShip {
   }
 
   move4() {
-    this.y+=4
+    this.y+=3.1
   }
 
   move5() {
-    this.y+=5
-  }
-
-  move6() {
-    this.y+=6
-  }
-
-  move7() {
-    this.y+=7
-  }
-
-  move8() {
-    this.y+=8
-  }
-
-  move9() {
-    this.y+=9
-  }
-
-  move10() {
-    this.y+=10
+    this.y+=3.2
   }
 }
 //
@@ -161,9 +129,6 @@ class PirateShip {
 // instace of the PirateShip class
 let pirateShip1 = new PirateShip();
 let pirateShip2 = new PirateShip();
-let pirateShip3 = new PirateShip();
-let pirateShip4 = new PirateShip();
-let pirateShip5 = new PirateShip();
 //
 
 // creates the cannon object
@@ -194,7 +159,7 @@ class CannonBall {
   }
 
   move() {
-    this.x+=9;
+    this.x+=15;
     if(this.x > canvas.width) {
       this.x = startingX
       clearInterval(cannonballAnimationId)  
@@ -204,40 +169,28 @@ class CannonBall {
 }
 //
 
-// collision function
-function checkCollision(ball, ship) {
- if (ball.y === ship.y && ship.x === ball.x) {
-  var collided = true;
- }
- else {
-  collided = false;
- }
-
- if (collided === true) {
-  console.log(ball.y);
-  console.log(ship.y);
- }
-// ship.x always equal to 1200
-// ship.y moves downwards
-
-// ball.x moves right
-// ball.y always equal to 530
-
-// function collision(b,p){                 object = p
-//   p.top = p.positionY;
-//   p.bottom = p.positionY + p.height;
-//   p.left = p.positionX;
-//   p.right = p.positionX + p.width;
-//   b.top = b.y- b.radius;
-//   b.bottom = b.y + b.radius;
-//   b.left = b.x - b.radius
-//   b.right = b.x + b.radius
-//   return b.right > p.left && b.top < p.bottom && b.left < p.right && b.bottom > p.top;
-}
-//
-
 // instace of the CannonBall class
 let cannonBall1 = new CannonBall(cannon.x, cannon.y);
+//
+
+// collision function
+function checkCollision(ball, ship) {
+  let hitCount = 0;
+  ball.top = ball.y;
+  ball.bottom = ball.y + ball.height;
+  ball.left = ball.x;
+  ball.right = ball.x + ball.width;
+
+  ship.top = ship.y;
+  ship.bottom = ship.y + ship.height;
+  ship.left = ship.x;
+  ship.right = ship.x + ship.width;
+
+ if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top) {
+  hitCount+=1;
+  console.log(hitCount);
+ }
+}
 //
 
 // onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
@@ -248,6 +201,88 @@ window.onload = () => {
     startGame();
     animationLoop();
     }
+}
+//
+
+// function for new ships coming down the y-axis
+function newShip(ship1, ship2) {
+  ship1.draw();
+  ship1.move();
+  
+  if (ship1.y === 800) {
+    ship1.y = 150;
+    shipCount++
+  }
+
+  if (shipCount >= 5) {
+    ship1.y = 900;
+    ship2.draw();
+    ship2.move2();
+
+    if (ship2.y === 800) {
+      ship2.y = 150;
+      shipCount++;
+    }
+  }
+
+  if (shipCount >= 10) {
+    ship1.y = 900;
+    ship2.draw();
+    ship2.move3();
+
+    if (ship2.y > 800) {
+      ship2.y = 150;
+      shipCount++;
+    }
+  }
+
+  if (shipCount >= 20) {
+    ship1.y = 900;
+    ship2.draw();
+    ship2.move4();
+
+    if (ship2.y > 800) {
+      ship2.y = 150;
+      shipCount++;
+    }
+  }
+
+  if (shipCount >= 30) {
+    ship1.y = 900;
+    ship2.draw();
+    ship2.move5();
+
+    if (ship2.y > 800) {
+      ship2.y = 150;
+      shipCount++;
+    }
+  }
+
+  if (shipCount >= 35 && shipCount < 40) {
+    ship1.y = 900;
+    ship2.draw();
+    ship2.move();
+
+    if (ship2.y > 800) {
+      ship2.y = 150;
+      shipCount++;
+    }
+  }
+
+  if (shipCount >= 45 && shipCount < 48) {
+    ship1.y = 900;
+    ship2.draw();
+    ship2.move3();
+
+    if (ship2.y > 800) {
+      ship2.y = 150;
+      shipCount++;
+    }
+  }
+
+  if (shipCount > 50) {
+    ctx.clearRect(0,0,1500,769);
+  }
 }
 //
 

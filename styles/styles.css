@@ -75,27 +75,6 @@ h1 {
     gap: 10rem;
   }
 
-  #music {
-    height: 40px;
-    width: 270px;
-    -moz-box-shadow: 2px 2px 4px 0px rgba(0,0, 0, 0.4);
-    -webkit-box-shadow:  2px 2px 4px 0px rgba(0,0, 0, 0.4);
-    box-shadow: 2px 2px 4px 0px rgba(0,0, 0, 0.4);
-    -moz-border-radius:7px 7px 7px 7px;
-    -webkit-border-radius:7px 7px 7px 7px;
-    border-radius:7px 7px 7px 7px;
-    background-color: rgb(243, 242, 242);
-    border-radius: 50px;
-  }
-
-   #music:hover {
-    color: white;
-    text-transform: uppercase;
-    -webkit-transform: scale(1.50);
-    -moz-transform: scale(1.50);
-    transform: scale(1.50);
-  }
-
   #menu-button {
     height: 40px;
     width: 250px;
