@@ -173,15 +173,11 @@ function checkCollision(ball, ship) {
   ship.bottom = ship.y + ship.height;
   ship.left = ship.x;
   ship.right = ship.x + ship.width;
- if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top && ship.y < 770) {
-  score++;
-  ship.y = 780;
-  cannonBall1.x = 4000;
- }
-
-if (ship.y === 779) {
-  shipCount--;
-}
+  if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top && ship.y < 770) {
+    score++;
+    ship.y = 780;
+    cannonBall1.x = 5000;
+  }
 }
 //
 
@@ -196,29 +192,31 @@ window.onload = () => {
 }
 //
 
-
-// if (ship.y === 779) {
-//   shipCount--;
-// }
-
 // function for new ships coming down the y-axis
 function newShip(ship1, ship2) {
-  console.log(ship1.y);
+  if (ship1.y === 779) {
+    shipCount--;
+  }
   ship1.draw();
   ship1.move();
   if (ship1.y === 800) {
     ship1.y = 150;                         
   }                                            
   if (score >= 2) {
+    if (ship2.y === 770) {
+      shipCount--;
+    }
     ship1.y = 900;
     ship2.draw();
     ship2.move2();
-    if (ship2.y === 800) {
-      shipCount--;
+    if (ship2.y === 798) {
       ship2.y = 150;
     }
   }
-  if (score >= 15) {
+  if (score >= 10) {
+    if (ship2.y === 770) {
+      shipCount--;
+    }
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
@@ -228,6 +226,9 @@ function newShip(ship1, ship2) {
   }
 
   if (score >= 25) {
+    if (ship2.y === 770) {
+      shipCount--;
+    }
     ship1.y = 900;
     ship2.draw();
     ship2.move4();
@@ -237,6 +238,9 @@ function newShip(ship1, ship2) {
   }
 
   if (score >= 35 && score < 40) {
+    if (ship2.y === 770) {
+      shipCount--;
+    }
     ship1.y = 900;
     ship2.draw();
     ship2.move();
@@ -246,6 +250,9 @@ function newShip(ship1, ship2) {
   }
 
   if (score >= 45 && score < 48) {
+    if (ship2.y === 770) {
+      shipCount--;
+    }
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
