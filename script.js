@@ -17,7 +17,9 @@ pirateImage.src = '/images/ship3.png';
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
 const scoreMap = new Image();
-scoreMap.src = '/images/score-map.png'
+scoreMap.src = '/images/score-map.png';
+const x = new Image();
+x.src = '/images/x.png';
 
 const fire = new Audio();
 fire.src = 'audio/cannon-fire.mp3';
@@ -54,7 +56,8 @@ function updateCanvas() {
     newShip(pirateShip1, pirateShip2);
     checkCollision(cannonBall1, pirateShip1);
     checkCollision(cannonBall1, pirateShip2);
-    scoreChecker()
+    scoreChecker();
+    shipChecker();
   }
 //
 
@@ -166,17 +169,24 @@ function checkCollision(ball, ship) {
   ball.top = ball.y;
   ball.bottom = ball.y + ball.height;
   ball.left = ball.x;
-  ball.right = ball.x + ball.width;
+  ball.right = ball.x + ball.width;        
   ship.top = ship.y;
   ship.bottom = ship.y + ship.height;
   ship.left = ship.x;
   ship.right = ship.x + ship.width;
- if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top) {
+ if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top && ship.y < 770) {
   score++;
   ship.y = 780;
   cannonBall1.x = 4000;
   shipCount--;
+  if (shipCount <= -1) {         // problem with lose condition when the ships speed up
+    shipCount = 0;
+  }
  }
+
+if (ship.y === 779) {
+  shipCount++;
+}
 }
 //
 
@@ -197,9 +207,8 @@ function newShip(ship1, ship2) {
   ship1.move();
   if (ship1.y === 800) {
     ship1.y = 150;
-    shipCount++
   }
-  if (shipCount >= 5) {
+  if (score >= 5) {
     ship1.y = 900;
     ship2.draw();
     ship2.move2();
@@ -209,7 +218,7 @@ function newShip(ship1, ship2) {
       shipCount++;
     }
   }
-  if (shipCount >= 10) {
+  if (score >= 15) {
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
@@ -219,7 +228,7 @@ function newShip(ship1, ship2) {
     }
   }
 
-  if (shipCount >= 20) {
+  if (score >= 25) {
     ship1.y = 900;
     ship2.draw();
     ship2.move4();
@@ -229,17 +238,7 @@ function newShip(ship1, ship2) {
     }
   }
 
-  if (shipCount >= 30) {
-    ship1.y = 900;
-    ship2.draw();
-    ship2.move5();
-    if (ship2.y > 800) {
-      ship2.y = 150;
-      shipCount++;
-    }
-  }
-
-  if (shipCount >= 35 && shipCount < 40) {
+  if (score >= 35 && score < 40) {
     ship1.y = 900;
     ship2.draw();
     ship2.move();
@@ -249,7 +248,7 @@ function newShip(ship1, ship2) {
     }
   }
 
-  if (shipCount >= 45 && shipCount < 48) {
+  if (score >= 45 && score < 48) {
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
@@ -263,16 +262,20 @@ function newShip(ship1, ship2) {
 
 // drawing score-board 
 function drawScore() {
-  ctx.drawImage(scoreMap, 20, 11, 150, 45); 
-  ctx.fillStyle = "black"
+  ctx.drawImage(scoreMap, 20, 11, 150, 100); 
+  ctx.fillStyle = "darkGreen"
   ctx.font = '24px serif'
-  ctx.fillText(`Score: ${score}`, 55, 40);
+  ctx.fillText(`Score: ${score}`, 55, 45);
+  ctx.drawImage(x, 85, 48.5, 20, 20);
+  ctx.fillStyle = "darkRed"
+  ctx.font = '24px serif'
+  ctx.fillText(`Ships: ${shipCount}`, 55, 85);
 }
 //
 
 // checks the win/lose conditions
 function scoreChecker() {
-  if (score >= 15) {
+  if (score >= 50) {
     sailing.volume = 0;
     fire.volume = 0;
     winning.play();
@@ -283,7 +286,7 @@ function scoreChecker() {
     ctx.fillText(`YOU WIN!`, 390, 400);
   }
 
-  if (score < 15 && shipCount >= 5) { 
+  if (score < 25 && shipCount >= 5) { 
     sailing.volume = 0;
     fire.volume = 0;
     laugh.play();
