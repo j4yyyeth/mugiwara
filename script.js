@@ -57,7 +57,6 @@ function updateCanvas() {
     checkCollision(cannonBall1, pirateShip1);
     checkCollision(cannonBall1, pirateShip2);
     scoreChecker();
-    shipChecker();
   }
 //
 
@@ -178,14 +177,10 @@ function checkCollision(ball, ship) {
   score++;
   ship.y = 780;
   cannonBall1.x = 4000;
-  shipCount--;
-  if (shipCount <= -1) {         // problem with lose condition when the ships speed up
-    shipCount = 0;
-  }
  }
 
 if (ship.y === 779) {
-  shipCount++;
+  shipCount--;
 }
 }
 //
@@ -201,21 +196,26 @@ window.onload = () => {
 }
 //
 
+
+// if (ship.y === 779) {
+//   shipCount--;
+// }
+
 // function for new ships coming down the y-axis
 function newShip(ship1, ship2) {
+  console.log(ship1.y);
   ship1.draw();
   ship1.move();
   if (ship1.y === 800) {
-    ship1.y = 150;
-  }
-  if (score >= 5) {
+    ship1.y = 150;                         
+  }                                            
+  if (score >= 2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move2();
-
     if (ship2.y === 800) {
+      shipCount--;
       ship2.y = 150;
-      shipCount++;
     }
   }
   if (score >= 15) {
@@ -224,7 +224,6 @@ function newShip(ship1, ship2) {
     ship2.move3();
     if (ship2.y > 800) {
       ship2.y = 150;
-      shipCount++;
     }
   }
 
@@ -234,7 +233,6 @@ function newShip(ship1, ship2) {
     ship2.move4();
     if (ship2.y > 800) {
       ship2.y = 150;
-      shipCount++;
     }
   }
 
@@ -244,7 +242,6 @@ function newShip(ship1, ship2) {
     ship2.move();
     if (ship2.y > 800) {
       ship2.y = 150;
-      shipCount++;
     }
   }
 
@@ -254,7 +251,6 @@ function newShip(ship1, ship2) {
     ship2.move3();
     if (ship2.y > 800) {
       ship2.y = 150;
-      shipCount++;
     }
   }
 }
@@ -286,7 +282,7 @@ function scoreChecker() {
     ctx.fillText(`YOU WIN!`, 390, 400);
   }
 
-  if (score < 25 && shipCount >= 5) { 
+  if (score < 25 && shipCount <= -5) { 
     sailing.volume = 0;
     fire.volume = 0;
     laugh.play();
