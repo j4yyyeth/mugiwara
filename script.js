@@ -224,42 +224,6 @@ function newShip(ship1, ship2) {
       ship2.y = 150;
     }
   }
-
-  if (score >= 25) {
-    if (ship2.y === 770) {
-      shipCount--;
-    }
-    ship1.y = 900;
-    ship2.draw();
-    ship2.move4();
-    if (ship2.y > 798) {
-      ship2.y = 150;
-    }
-  }
-
-  if (score >= 35 && score < 40) {
-    if (ship2.y === 770) {
-      shipCount--;
-    }
-    ship1.y = 900;
-    ship2.draw();
-    ship2.move();
-    if (ship2.y > 798) {
-      ship2.y = 150;
-    }
-  }
-
-  if (score >= 45 && score < 48) {
-    if (ship2.y === 770) {
-      shipCount--;
-    }
-    ship1.y = 900;
-    ship2.draw();
-    ship2.move3();
-    if (ship2.y > 798) {
-      ship2.y = 150;
-    }
-  }
 }
 //
 
@@ -278,7 +242,7 @@ function drawScore() {
 
 // checks the win/lose conditions
 function scoreChecker() {
-  if (score >= 50) {
+  if (score >= 30) {
     sailing.volume = 0;
     fire.volume = 0;
     winning.play();
@@ -287,9 +251,15 @@ function scoreChecker() {
     ctx.fillStyle = "red"
     ctx.font = '150px serif'
     ctx.fillText(`YOU WIN!`, 390, 400);
+    ctx.drawImage(scoreMap, 20, 11, 150, 100); 
+    ctx.fillStyle = "darkGreen"
+    ctx.font = '24px serif'
+    ctx.fillText(`Score: ${score}`, 55, 45);
+    ctx.drawImage(x, 85, 48.5, 20, 20);
+    cannonBall1.inFlight = true;
   }
 
-  if (score < 25 && shipCount <= -5) { 
+  if (shipCount <= -5 && score < 30) { 
     sailing.volume = 0;
     fire.volume = 0;
     laugh.play();
