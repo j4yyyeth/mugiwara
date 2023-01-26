@@ -54,10 +54,10 @@ function updateCanvas() {
     ctx.drawImage(deck, 0, -20, 600, 800);     
     cannonBall1.draw();
     cannon.draw();
-    drawScore();
-    newShip(pirateShip1, pirateShip2);
     checkCollision(cannonBall1, pirateShip1);
     checkCollision(cannonBall1, pirateShip2);
+    drawScore();
+    newShip(pirateShip1, pirateShip2);
     scoreChecker();
   }
 //
