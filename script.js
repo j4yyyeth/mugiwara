@@ -20,6 +20,8 @@ const scoreMap = new Image();
 scoreMap.src = '/images/score-map.png';
 const x = new Image();
 x.src = '/images/x.png';
+const explosion = new Image();
+explosion.src = '/images/explosion.png';
 
 const fire = new Audio();
 fire.src = 'audio/cannon-fire.mp3';
@@ -174,9 +176,10 @@ function checkCollision(ball, ship) {
   ship.left = ship.x;
   ship.right = ship.x + ship.width;
   if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top && ship.y < 770) {
+    cannonBall1.x = 5000;
     score++;
     ship.y = 780;
-    cannonBall1.x = 5000;
+    ctx.drawImage(explosion, 1000, 300, 500, 500)
   }
 }
 //
@@ -248,7 +251,7 @@ function scoreChecker() {
     winning.play();
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, 1500, 769)
-    ctx.fillStyle = "red"
+    ctx.fillStyle = "green"
     ctx.font = '150px serif'
     ctx.fillText(`YOU WIN!`, 390, 400);
     ctx.drawImage(scoreMap, 20, 11, 150, 100); 
@@ -268,6 +271,7 @@ function scoreChecker() {
     ctx.fillStyle = "red"
     ctx.font = '150px serif'
     ctx.fillText(`YOU LOSE!`, 370, 400);
+    cannonBall1.inFlight = true;
   }
 }
 //
