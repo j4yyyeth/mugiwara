@@ -220,7 +220,7 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
-    if (ship2.y > 800) {
+    if (ship2.y > 798) {
       ship2.y = 150;
     }
   }
@@ -232,7 +232,7 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move4();
-    if (ship2.y > 800) {
+    if (ship2.y > 798) {
       ship2.y = 150;
     }
   }
@@ -244,7 +244,7 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move();
-    if (ship2.y > 800) {
+    if (ship2.y > 798) {
       ship2.y = 150;
     }
   }
@@ -256,7 +256,7 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
-    if (ship2.y > 800) {
+    if (ship2.y > 798) {
       ship2.y = 150;
     }
   }
