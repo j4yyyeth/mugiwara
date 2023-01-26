@@ -32,13 +32,8 @@ sailing.volume = 0.5;
 //
 
 let cannonballAnimationId;
-
 let shipCount = 0;
-
-// starting positions for cannon
-let startingX = 180;
-let startingY = 530;
-//
+let score = 0;
 
 // function to start the game .. later added to onclick 
 function startGame() {
@@ -46,8 +41,6 @@ function startGame() {
     ctx.drawImage(deck, 0, -20, 500, 800);
     sailing.play();
     cannon.draw();
-    cannon.x = startingX;
-    cannon.y = startingY;
 }
 //
 
@@ -58,11 +51,13 @@ function updateCanvas() {
     ctx.drawImage(deck, 0, -20, 600, 800);     
     cannonBall1.draw();
     cannon.draw();
+    drawScore();
 
     newShip(pirateShip1, pirateShip2);
 
     checkCollision(cannonBall1, pirateShip1);
     checkCollision(cannonBall1, pirateShip2);
+
 }
 //
 
@@ -98,6 +93,7 @@ class PirateShip {
     this.y = 150
     this.width = 100
     this.height = 150
+    this.sailing = false;
   }
 
   draw() {
@@ -133,8 +129,8 @@ let pirateShip2 = new PirateShip();
 
 // creates the cannon object
 const cannon = {
-    x: startingX,
-    y: startingY,
+    x: 180,
+    y: 530,
     width: 200,
     height: 200,
   
@@ -161,7 +157,7 @@ class CannonBall {
   move() {
     this.x+=15;
     if(this.x > canvas.width) {
-      this.x = startingX
+      this.x = 180
       clearInterval(cannonballAnimationId)  
       this.inFlight = false 
     }
@@ -175,7 +171,6 @@ let cannonBall1 = new CannonBall(cannon.x, cannon.y);
 
 // collision function
 function checkCollision(ball, ship) {
-  let hitCount = 0;
   ball.top = ball.y;
   ball.bottom = ball.y + ball.height;
   ball.left = ball.x;
@@ -187,8 +182,10 @@ function checkCollision(ball, ship) {
   ship.right = ship.x + ship.width;
 
  if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top) {
-  hitCount+=1;
-  console.log(hitCount);
+  score++;
+  shipCount--;
+  console.log(score);
+  console.log(shipCount);
  }
 }
 //
@@ -280,9 +277,20 @@ function newShip(ship1, ship2) {
     }
   }
 
-  if (shipCount > 50) {
+  if (shipCount === 3) {
     ctx.clearRect(0,0,1500,769);
   }
+}
+//
+
+// drawing score-board 
+function drawScore() {
+  ctx.fillStyle = 'black'
+  ctx.fillRect(20, 11, 150, 45)
+
+  ctx.fillStyle = "white"
+  ctx.font = '24px serif'
+  ctx.fillText(`Score: ${score}`, 55, 40);
 }
 //
 
