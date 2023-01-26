@@ -1,7 +1,6 @@
 // getting images/audio
 const playButton = document.getElementById('play-button');
 const menuButton = document.getElementById('menu-button');
-
 const container = document.getElementById('flex-container');
 
 const canvas = document.getElementById('canvas');
@@ -9,26 +8,26 @@ const ctx = canvas.getContext('2d');
 
 const oceanBackground = new Image();
 oceanBackground.src = '/images/ocean1.jpg';
-
 const cannonImage = new Image();
 cannonImage.src = '/images/cannon1.png';
-
 const cannonBallImage = new Image();
 cannonBallImage.src = '/images/cannon-ball.png';
-
 const pirateImage = new Image();
 pirateImage.src = '/images/ship3.png';
-
 const deck = new Image();
 deck.src = '/images/pirate-ship-deck.png';
+const scoreMap = new Image();
+scoreMap.src = '/images/score-map.png'
 
-let fire = new Audio();
+const fire = new Audio();
 fire.src = 'audio/cannon-fire.mp3';
-fire.volume = 1;
-
-let sailing = new Audio();
+const sailing = new Audio();
 sailing.src = 'audio/sailing-ship.mp3';
 sailing.volume = 0.5;
+const winning = new Audio();
+winning.src = 'audio/winning-sound.mp3';
+const laugh = new Audio();
+laugh.src = 'audio/pirate-laugh.mp3';
 //
 
 let cannonballAnimationId;
@@ -52,13 +51,11 @@ function updateCanvas() {
     cannonBall1.draw();
     cannon.draw();
     drawScore();
-
     newShip(pirateShip1, pirateShip2);
-
     checkCollision(cannonBall1, pirateShip1);
     checkCollision(cannonBall1, pirateShip2);
-
-}
+    scoreChecker()
+  }
 //
 
 // updates the cannon ball
@@ -93,7 +90,6 @@ class PirateShip {
     this.y = 150
     this.width = 100
     this.height = 150
-    this.sailing = false;
   }
 
   draw() {
@@ -103,19 +99,15 @@ class PirateShip {
   move() {
     this.y+=1; 
   }
-
   move2() {
     this.y+=2;
   }
-
   move3() {
     this.y+=3;
   }
-
   move4() {
     this.y+=3.1
   }
-
   move5() {
     this.y+=3.2
   }
@@ -175,17 +167,15 @@ function checkCollision(ball, ship) {
   ball.bottom = ball.y + ball.height;
   ball.left = ball.x;
   ball.right = ball.x + ball.width;
-
   ship.top = ship.y;
   ship.bottom = ship.y + ship.height;
   ship.left = ship.x;
   ship.right = ship.x + ship.width;
-
  if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top) {
   score++;
+  ship.y = 780;
+  cannonBall1.x = 4000;
   shipCount--;
-  console.log(score);
-  console.log(shipCount);
  }
 }
 //
@@ -205,12 +195,10 @@ window.onload = () => {
 function newShip(ship1, ship2) {
   ship1.draw();
   ship1.move();
-  
   if (ship1.y === 800) {
     ship1.y = 150;
     shipCount++
   }
-
   if (shipCount >= 5) {
     ship1.y = 900;
     ship2.draw();
@@ -221,12 +209,10 @@ function newShip(ship1, ship2) {
       shipCount++;
     }
   }
-
   if (shipCount >= 10) {
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
-
     if (ship2.y > 800) {
       ship2.y = 150;
       shipCount++;
@@ -237,7 +223,6 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move4();
-
     if (ship2.y > 800) {
       ship2.y = 150;
       shipCount++;
@@ -248,7 +233,6 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move5();
-
     if (ship2.y > 800) {
       ship2.y = 150;
       shipCount++;
@@ -259,7 +243,6 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move();
-
     if (ship2.y > 800) {
       ship2.y = 150;
       shipCount++;
@@ -270,27 +253,46 @@ function newShip(ship1, ship2) {
     ship1.y = 900;
     ship2.draw();
     ship2.move3();
-
     if (ship2.y > 800) {
       ship2.y = 150;
       shipCount++;
     }
-  }
-
-  if (shipCount === 3) {
-    ctx.clearRect(0,0,1500,769);
   }
 }
 //
 
 // drawing score-board 
 function drawScore() {
-  ctx.fillStyle = 'black'
-  ctx.fillRect(20, 11, 150, 45)
-
-  ctx.fillStyle = "white"
+  ctx.drawImage(scoreMap, 20, 11, 150, 45); 
+  ctx.fillStyle = "black"
   ctx.font = '24px serif'
   ctx.fillText(`Score: ${score}`, 55, 40);
+}
+//
+
+// checks the win/lose conditions
+function scoreChecker() {
+  if (score >= 15) {
+    sailing.volume = 0;
+    fire.volume = 0;
+    winning.play();
+    ctx.fillStyle = 'black'
+    ctx.fillRect(0, 0, 1500, 769)
+    ctx.fillStyle = "red"
+    ctx.font = '150px serif'
+    ctx.fillText(`YOU WIN!`, 390, 400);
+  }
+
+  if (score < 15 && shipCount >= 5) { 
+    sailing.volume = 0;
+    fire.volume = 0;
+    laugh.play();
+    ctx.fillStyle = 'black'
+    ctx.fillRect(0, 0, 1500, 769)
+    ctx.fillStyle = "red"
+    ctx.font = '150px serif'
+    ctx.fillText(`YOU LOSE!`, 370, 400);
+  }
 }
 //
 
