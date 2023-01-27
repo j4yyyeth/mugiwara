@@ -209,7 +209,7 @@ function drawScore() {
   ctx.drawImage(x, 85, 48.5, 20, 20);
   ctx.fillStyle = "darkRed"
   ctx.font = '24px serif'
-  ctx.fillText(`Ships: -${shipCount}`, 55, 85);
+  ctx.fillText(`Ships: ${shipCount}`, 55, 85);
 }
 
 function scoreChecker() {
