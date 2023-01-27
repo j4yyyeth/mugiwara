@@ -131,7 +131,7 @@ class CannonBall {
   }
 
   move() {
-    this.x+=5.4;
+    this.x+=5.5;
     if(this.x > canvas.width) {
       this.x = 180
       clearInterval(cannonballAnimationId)  
