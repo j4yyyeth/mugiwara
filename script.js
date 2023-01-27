@@ -213,7 +213,7 @@ function drawScore() {
 }
 
 function scoreChecker() {
-  if (score >= 30) {
+  if (score >= 15) {
     sailing.volume = 0;
     fire.volume = 0;
     winning.play();
