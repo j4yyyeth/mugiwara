@@ -205,7 +205,7 @@ function drawScore() {
   ctx.drawImage(scoreMap, 20, 11, 150, 100); 
   ctx.fillStyle = "darkGreen"
   ctx.font = '24px serif'
-  ctx.fillText(`Score: +${score}`, 55, 45);
+  ctx.fillText(`Score: ${score}`, 55, 45);
   ctx.drawImage(x, 85, 48.5, 20, 20);
   ctx.fillStyle = "darkRed"
   ctx.font = '24px serif'
@@ -225,7 +225,7 @@ function scoreChecker() {
     ctx.drawImage(scoreMap, 20, 11, 150, 100); 
     ctx.fillStyle = "darkGreen"
     ctx.font = '24px serif'
-    ctx.fillText(`Score: +${score}`, 55, 45);
+    ctx.fillText(`Score: ${score}`, 55, 45);
     ctx.drawImage(x, 85, 48.5, 20, 20);
     cannonBall1.inFlight = true;
   }
