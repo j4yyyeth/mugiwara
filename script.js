@@ -230,7 +230,7 @@ function scoreChecker() {
     cannonBall1.inFlight = true;
   }
 
-  if (shipCount <= -5 && score < 30) { 
+  if (shipCount <= -5 && score < 15) { 
     sailing.volume = 0;
     fire.volume = 0;
     laugh.play();
