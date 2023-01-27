@@ -1,4 +1,3 @@
-// getting images/audio
 const playButton = document.getElementById('play-button');
 const menuButton = document.getElementById('menu-button');
 const container = document.getElementById('flex-container');
@@ -32,22 +31,18 @@ const winning = new Audio();
 winning.src = 'audio/winning-sound.mp3';
 const laugh = new Audio();
 laugh.src = 'audio/pirate-laugh.mp3';
-//
 
 let cannonballAnimationId;
 let shipCount = 0;
 let score = 0;
 
-// function to start the game .. later added to onclick 
 function startGame() {
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
     ctx.drawImage(deck, 0, -20, 500, 800);
     sailing.play();
     cannon.draw();
 }
-//
 
-// updates what's on the canvas .. later used in the animation loop function
 function updateCanvas() {
     ctx.clearRect(0,0,1500,769);
     ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
@@ -60,9 +55,7 @@ function updateCanvas() {
     newShip(pirateShip1, pirateShip2);
     scoreChecker();
   }
-//
 
-// updates the cannon ball
 function updateCannon() {
   cannonBall1.inFlight = true
   cannonballAnimationId = setInterval(() => {
@@ -75,24 +68,20 @@ function updateCannon() {
     }
   }, 1);
 }
-//
 
 let animationLoopId;
 
-// animation loop that used the updateCanvas() function to draw the images
 function animationLoop() {
     animationLoopId = setInterval(() => {
       updateCanvas();
     }, 10);
 }
-// 
 
-// PirateShip class to make new pirate ships appear after the one before leaves the y-axis
 class PirateShip {
   constructor() {
     this.x = 1200
     this.y = 150
-    this.width = 100
+    this.width = 130
     this.height = 150
   }
 
@@ -110,20 +99,13 @@ class PirateShip {
     this.y+=3;
   }
   move4() {
-    this.y+=3.1
-  }
-  move5() {
-    this.y+=3.2
+    this.y+=4
   }
 }
-//
 
-// instace of the PirateShip class
 let pirateShip1 = new PirateShip();
 let pirateShip2 = new PirateShip();
-//
 
-// creates the cannon object
 const cannon = {
     x: 180,
     y: 530,
@@ -134,9 +116,7 @@ const cannon = {
       ctx.drawImage(cannonImage, this.x, this.y, this.width, this.height);
     },
 }
-//
 
-// this class draws the cannonball inside the cannon, as well as move animate it if you press space
 class CannonBall {
   constructor(x, y) {
      this.x = x;
@@ -151,7 +131,7 @@ class CannonBall {
   }
 
   move() {
-    this.x+=15;
+    this.x+=5.3;
     if(this.x > canvas.width) {
       this.x = 180
       clearInterval(cannonballAnimationId)  
@@ -159,15 +139,11 @@ class CannonBall {
     }
   }
 }
-//
 
-// instace of the CannonBall class
 let cannonBall1 = new CannonBall(cannon.x, cannon.y);
-//
 
-// collision function
 function checkCollision(ball, ship) {
-  ball.top = ball.y;
+  ball.top = ball.y + 33;
   ball.bottom = ball.y + ball.height;
   ball.left = ball.x;
   ball.right = ball.x + ball.width;        
@@ -176,15 +152,13 @@ function checkCollision(ball, ship) {
   ship.left = ship.x;
   ship.right = ship.x + ship.width;
   if (ball.right > ship.left && ball.top + 20 < ship.bottom && ball.left < ship.right && ball.bottom > ship.top && ship.y < 770) {
+    ctx.drawImage(explosion, 1000, 300, 500, 500);
     cannonBall1.x = 5000;
     score++;
     ship.y = 780;
-    ctx.drawImage(explosion, 1000, 300, 500, 500)
   }
 }
-//
 
-// onload, when you click the button, make the canvas visible, remove the content above, and draw the frame
 window.onload = () => {
     playButton.onclick = () => {
     canvas.style.visibility = 'visible';
@@ -193,9 +167,7 @@ window.onload = () => {
     animationLoop();
     }
 }
-//
 
-// function for new ships coming down the y-axis
 function newShip(ship1, ship2) {
   if (ship1.y === 779) {
     shipCount--;
@@ -228,9 +200,7 @@ function newShip(ship1, ship2) {
     }
   }
 }
-//
 
-// drawing score-board 
 function drawScore() {
   ctx.drawImage(scoreMap, 20, 11, 150, 100); 
   ctx.fillStyle = "darkGreen"
@@ -241,9 +211,7 @@ function drawScore() {
   ctx.font = '24px serif'
   ctx.fillText(`Ships: ${shipCount}`, 55, 85);
 }
-//
 
-// checks the win/lose conditions
 function scoreChecker() {
   if (score >= 30) {
     sailing.volume = 0;
@@ -274,9 +242,7 @@ function scoreChecker() {
     cannonBall1.inFlight = true;
   }
 }
-//
 
-// event listener that allows you to move the cannon with the arrow keys
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
       case 32:
@@ -298,4 +264,3 @@ document.addEventListener('keydown', e => {
         break;
     }
 });
-//
