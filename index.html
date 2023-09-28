@@ -1,38 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buccaneer Barrage</title>
-    <link rel="icon" type="image/x-icon" href="/images/sword.png">
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Secular+One&display=swap" rel="stylesheet">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mugiwara</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Secular+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-    <div id="flex-container">
-        <h1>Buccaneer Barrage</h1>
-        <img src="images/pirate-logo2.png" id="game-logo" alt="logo">
-        <div id="map-and-text">
-            <img src="images/pirate-map.jpg" alt="map" style="width:80%;">
-            <div class="text">
-                <p><span>Ahoy Matey!</span> In this game, you have only one objective. Shoot down the enemy pirate ships with your <span>cannon</span> aKa <span>space key!</span> If you shoot down <span>30</span> pirate ships, <span>you win!</span> </span>If <span>5</span> ships cross your view, <span>you lose ... ARGHH!</span><br><button id="play-button">Play</button></p>
+  <body>
+    <div id="home-screen">
+      <div id="map-and-text">
+        <img class="map-img" src="images/map.png" alt="map" />
+        <div class="text">
+          <p>
+            <span>Ahoy there, matey!</span> In this treacherous game of skill
+            and daring, ye have but one mission: unleash the fury of yer mighty
+            cannon, aKa the <span>SPACE KEY</span>, upon the enemy pirate ships!
+            Avast, should <span>five</span> of these scallywags slip through yer
+            grasp, ye shall meet a watery grave, <span>arghh!</span> Prepare to
+            set sail on this perilous journey by clickin' the Play button and
+            prove yer mettle as a true pirate of the high seas! May yer aim be
+            true and yer score be <span>legendary!</span>
+          </p>
+          <button id="play-button">
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <img class="logo-btn-img" src="images/logo.png" alt="map" />
+              </div>
             </div>
+            <span class="send">Play</span>
+          </button>
         </div>
+      </div>
     </div>
     <div id="game">
-        <canvas id="canvas" height="769" width="1500"></canvas>
+      <canvas id="canvas" height="769" width="1500"></canvas>
     </div>
-    
-    <br>
-
-    <!-- In case you want to add an image for the audio: <img src="images/pirate-song-image.png"> -->
     <div id="flex-container-2">
-        <button id="menu-button" onClick="window.location.reload(true)">Return to Menu</button>
+      <button id="menu-button" onClick="window.location.reload(true)">
+        Return to Menu
+      </button>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
