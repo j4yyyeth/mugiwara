@@ -6,21 +6,21 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const oceanBackground = new Image();
-oceanBackground.src = "/images/ocean1.jpg";
+oceanBackground.src = '/images/ocean1.jpg';
 const cannonImage = new Image();
-cannonImage.src = "/images/cannon1.png";
+cannonImage.src = '/images/cannon1.png';
 const cannonBallImage = new Image();
-cannonBallImage.src = "/images/cannon-ball.png";
+cannonBallImage.src = '/images/cannon-ball.png';
 const pirateImage = new Image();
-pirateImage.src = "/images/ship.png";
+pirateImage.src = '/images/ship3.png';
 const deck = new Image();
-deck.src = "/images/pirate-ship-deck.png";
+deck.src = '/images/pirate-ship-deck.png';
 const scoreMap = new Image();
-scoreMap.src = "/images/score-map.png";
+scoreMap.src = '/images/score-map.png';
 const x = new Image();
-x.src = "/images/x.png";
+x.src = '/images/x.png';
 const explosion = new Image();
-explosion.src = "/images/explosion.png";
+explosion.src = '/images/explosion.png';
 
 const fire = new Audio();
 fire.src = "audio/cannon-fire.mp3";
@@ -146,11 +146,11 @@ class CannonBall {
   }
 
   move() {
-    this.x += 5.3;
-    if (this.x > canvas.width) {
-      this.x = 180;
-      clearInterval(cannonballAnimationId);
-      this.inFlight = false;
+    this.x+=5.3;
+    if(this.x > canvas.width) {
+      this.x = 180
+      clearInterval(cannonballAnimationId)  
+      this.inFlight = false 
     }
   }
 }
@@ -234,8 +234,24 @@ function drawScore() {
 }
 
 function scoreChecker() {
-  if (shipCount <= -5) {
-    console.log("END!!!");
+  if (score >= 30) {
+    sailing.volume = 0;
+    fire.volume = 0;
+    winning.play();
+    ctx.fillStyle = 'black'
+    ctx.fillRect(0, 0, 1500, 769)
+    ctx.fillStyle = "green"
+    ctx.font = '150px serif'
+    ctx.fillText(`YOU WIN!`, 390, 400);
+    ctx.drawImage(scoreMap, 20, 11, 150, 100); 
+    ctx.fillStyle = "darkGreen"
+    ctx.font = '24px serif'
+    ctx.fillText(`Score: ${score}`, 55, 45);
+    ctx.drawImage(x, 85, 48.5, 20, 20);
+    cannonBall1.inFlight = true;
+  }
+
+  if (shipCount <= -5 && score < 30) { 
     sailing.volume = 0;
     fire.volume = 0;
     laugh.play();
