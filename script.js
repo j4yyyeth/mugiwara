@@ -22,6 +22,9 @@ x.src = "/images/x.png";
 const explosion = new Image();
 explosion.src = "/images/explosion.png";
 
+const roger = new Image();
+roger.src = "/images/roger.gif";
+
 const fire = new Audio();
 fire.src = "audio/cannon-fire.mp3";
 const sailing = new Audio();
@@ -35,12 +38,14 @@ laugh.src = "audio/pirate-laugh.mp3";
 let cannonballAnimationId;
 let shipCount = 0;
 let score = 0;
+let started = false;
 
 function startGame() {
   ctx.drawImage(oceanBackground, 0, 0, 1500, 769);
   ctx.drawImage(deck, 0, -20, 500, 800);
   sailing.play();
   cannon.draw();
+  started = true;
 }
 
 function updateCanvas() {
@@ -229,33 +234,59 @@ function scoreChecker() {
     sailing.volume = 0;
     fire.volume = 0;
     laugh.play();
+    ctx.drawImage(roger, 0, 0, canvas.width, canvas.height * 0.7);
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, 1500, 769);
-    ctx.fillStyle = "red";
-    ctx.font = "150px serif";
-    ctx.fillText(`YOU LOSE!`, 370, 400);
+    ctx.fillRect(0, canvas.height * 0.7, canvas.width, canvas.height * 0.3);
+    ctx.fillStyle = "white";
+    ctx.font = "30px serif";
+    ctx.textAlign = "center";
+    const text = `Arrr, ye fought valiantly, but the seas can be unforgiving! Alas, ye let five ships slip through yer grasp, but take heart, matey! Yer score be a respectable ${score}, and the pirate's life be full of second chances. Hoist the Jolly Roger once more, and set sail on another adventure to reclaim yer honor on the high seas!`;
+    const maxCharsPerLine = Math.floor(canvas.width / 16);
+    const lines = [];
+    let line = "";
+    for (const word of text.split(" ")) {
+      if (line.length + word.length + 1 <= maxCharsPerLine) {
+        line += (line.length === 0 ? "" : " ") + word;
+      } else {
+        lines.push(line);
+        line = word;
+      }
+    }
+    if (line.length > 0) {
+      lines.push(line);
+    }
+    const lineHeight = 40;
+    const textHeight = lines.length * lineHeight;
+    const textY = canvas.height * 0.7 + (canvas.height * 0.3 - textHeight) / 2;
+    lines.forEach((line, index) => {
+      const lineY = textY + index * lineHeight;
+      ctx.fillText(line, canvas.width / 2, lineY);
+    });
     cannonBall1.inFlight = true;
+    handleGameOver();
   }
 }
 
 document.addEventListener("keydown", (e) => {
-  switch (e.keyCode) {
-    case 32:
-      if (cannonBall1.inFlight === false) {
-        updateCannon();
-      }
-      break;
-    case 38:
-      cannon.moveUp();
-      break;
-    case 40:
-      cannon.moveDown();
-      break;
-    case 37:
-      cannon.moveLeft();
-      break;
-    case 39:
-      cannon.moveRight();
-      break;
+  if (started) {
+    switch (e.keyCode) {
+      case 32:
+        if (cannonBall1.inFlight === false) {
+          updateCannon();
+        }
+        break;
+      case 38:
+        cannon.moveUp();
+        break;
+      case 40:
+        cannon.moveDown();
+        break;
+      case 37:
+        cannon.moveLeft();
+        break;
+      case 39:
+        cannon.moveRight();
+        break;
+    }
   }
 });

@@ -151,15 +151,17 @@ h1 {
   height: 40px;
   width: 250px;
   background-color: rgb(233, 12, 12);
+  color: white;
   border: none;
   border-radius: 50px;
   font-family: 'Secular One', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
+  transition: 0.3s;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 #menu-button:hover {
-  color: white;
-  text-transform: uppercase;
   -webkit-transform: scale(1.50);
   -moz-transform: scale(1.50);
   transform: scale(1.50);
@@ -167,9 +169,11 @@ h1 {
 
 #game {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  margin-top: 10px;
+  height: 100vh;
+  width: 100vw;
 }
 
 #canvas {
