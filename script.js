@@ -30,8 +30,6 @@ fire.src = "audio/cannon-fire.mp3";
 const sailing = new Audio();
 sailing.src = "audio/sailing-ship.mp3";
 sailing.volume = 0.5;
-const winning = new Audio();
-winning.src = "audio/winning-sound.mp3";
 const laugh = new Audio();
 laugh.src = "audio/pirate-laugh.mp3";
 
@@ -95,16 +93,16 @@ class PirateShip {
   }
 
   move() {
-    this.y += 1;
+    this.y += 1; // SHIP SPEED
   }
   move2() {
-    this.y += 2;
+    this.y += 2; // SHIP SPEED
   }
   move3() {
-    this.y += 3;
+    this.y += 3; // SHIP SPEED
   }
   move4() {
-    this.y += 4;
+    this.y += 4; // SHIP SPEED
   }
 }
 
@@ -142,7 +140,7 @@ class CannonBall {
   }
 
   move() {
-    this.x += 5.3;
+    this.x += 5.3; // CANNON SPEED
     if (this.x > canvas.width) {
       this.x = 180;
       clearInterval(cannonballAnimationId);
