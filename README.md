@@ -1,7 +1,7 @@
 # Mugiwara
 Mugiwara is a fun and engaging 2D pirate-themed game built with HTML, CSS, JavaScript, and Canvas. The objective of the game is to shoot pirate ships with a cannon as they sail across the screen. Players can rack up an unlimited score, but beware ... let five ships pass your view, and the game is over.
 
-![Screenshot 2023-09-28 at 11 12 11 PM 1](https://github.com/j4yyyeth/mugiwara/assets/113713677/e97f7624-9460-4b71-b7a3-b4af599310f8)
+![Screenshot 2023-09-28 at 11 14 24 PM](https://github.com/j4yyyeth/mugiwara/assets/113713677/034aadca-dd64-4404-98ea-c7132e19b823)
 
 ## Controls
 Shoot your cannon using the space bar
